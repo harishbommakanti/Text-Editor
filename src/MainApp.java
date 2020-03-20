@@ -10,6 +10,9 @@ public class MainApp extends JFrame
     //Main JFrame for the text editor
     JFrame f;
 
+    //Main text area space
+    JTextArea t;
+
     public static void main(String[] args)
     {
         //call the constructor to set the JFrame attributes and set things in motion
@@ -32,8 +35,21 @@ public class MainApp extends JFrame
             MetalLookAndFeel.setCurrentTheme(new OceanTheme());
         } catch (Exception e){}
 
+        //sets up main text area
+        t = new JTextArea();
+        initializeTextArea(t,width,height);
+        f.add(t);
+
         //final methods to show the box
         f.setLayout(null);
         f.setVisible(true);
+    }
+
+    private void initializeTextArea(JTextArea t, int w, int h)
+    {
+        t.setBounds(0,40,w,h);
+        t.setFont(new Font("Calibri", Font.PLAIN, 14));
+        t.setLineWrap(true);
+        t.setWrapStyleWord(true);
     }
 }
