@@ -28,6 +28,7 @@ public class MainApp extends JFrame
         int width=600;
         int height=700;
         f.setSize(width,height);
+        f.setResizable(false);
 
         //styling
         try {
@@ -40,6 +41,24 @@ public class MainApp extends JFrame
         initializeTextArea(t,width,height);
         f.add(t);
 
+        //main menubar for 'new', 'open', and 'save' buttons
+        JMenuBar menubar = new JMenuBar();
+        f.setJMenuBar(menubar);
+
+        JMenu m = new JMenu("File");
+
+        //main menu buttons
+        JMenuItem menuNew = new JMenuItem("New");
+        JMenuItem menuOpen = new JMenuItem("Open");
+        JMenuItem menuSave = new JMenuItem("Save");
+
+        m.add(menuNew);
+        m.add(menuOpen);
+        m.add(menuSave);
+
+        menubar.add(m);
+
+
         //final methods to show the box
         f.setLayout(null);
         f.setVisible(true);
@@ -47,7 +66,7 @@ public class MainApp extends JFrame
 
     private void initializeTextArea(JTextArea t, int w, int h)
     {
-        t.setBounds(0,40,w,h);
+        t.setBounds(0,0,w,h);
         t.setFont(new Font("Calibri", Font.PLAIN, 14));
         t.setLineWrap(true);
         t.setWrapStyleWord(true);
