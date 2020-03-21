@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
 
-public class MainApp extends JFrame
+public class MainApp extends JFrame implements ActionListener
 {
     //Main JFrame for the text editor
     JFrame f;
@@ -45,24 +45,22 @@ public class MainApp extends JFrame
         JMenuBar menubar = new JMenuBar();
         f.setJMenuBar(menubar);
 
+        //adding a menu button for main file operations
         JMenu file = new JMenu("File");
         JMenuItem menuNew = new JMenuItem("New");
         JMenuItem menuOpen = new JMenuItem("Open");
         JMenuItem menuSave = new JMenuItem("Save");
+
+        //adding event listeners
+        menuNew.addActionListener(this);
+        menuOpen.addActionListener(this);
+        menuSave.addActionListener(this);
+
+        //adding them to the menu
         file.add(menuNew);
         file.add(menuOpen);
         file.add(menuSave);
         menubar.add(file);
-
-
-        JMenu textOps = new JMenu("Text Operations");
-        JMenuItem cut = new JMenuItem("Cut");
-        JMenuItem copy = new JMenuItem("Copy");
-        JMenuItem paste = new JMenuItem("Paste");
-        textOps.add(cut);
-        textOps.add(copy);
-        textOps.add(paste);
-        menubar.add(textOps);
 
 
         //final methods to show the box
@@ -76,5 +74,11 @@ public class MainApp extends JFrame
         t.setFont(new Font("Calibri", Font.PLAIN, 14));
         t.setLineWrap(true);
         t.setWrapStyleWord(true);
+    }
+
+    //@Override
+    public void actionPerformed(ActionEvent e)
+    {
+
     }
 }
