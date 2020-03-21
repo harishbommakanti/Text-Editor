@@ -45,18 +45,24 @@ public class MainApp extends JFrame
         JMenuBar menubar = new JMenuBar();
         f.setJMenuBar(menubar);
 
-        JMenu m = new JMenu("File");
-
-        //main menu buttons
+        JMenu file = new JMenu("File");
         JMenuItem menuNew = new JMenuItem("New");
         JMenuItem menuOpen = new JMenuItem("Open");
         JMenuItem menuSave = new JMenuItem("Save");
+        file.add(menuNew);
+        file.add(menuOpen);
+        file.add(menuSave);
+        menubar.add(file);
 
-        m.add(menuNew);
-        m.add(menuOpen);
-        m.add(menuSave);
 
-        menubar.add(m);
+        JMenu textOps = new JMenu("Text Operations");
+        JMenuItem cut = new JMenuItem("Cut");
+        JMenuItem copy = new JMenuItem("Copy");
+        JMenuItem paste = new JMenuItem("Paste");
+        textOps.add(cut);
+        textOps.add(copy);
+        textOps.add(paste);
+        menubar.add(textOps);
 
 
         //final methods to show the box
