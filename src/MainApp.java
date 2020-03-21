@@ -76,8 +76,28 @@ public class MainApp extends JFrame implements ActionListener
         t.setWrapStyleWord(true);
     }
 
-    //@Override
+    @Override
     public void actionPerformed(ActionEvent e)
+    {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "New": makeNewFile(); break;
+            case "Open": openFile(); break;
+            case "Save": saveFile(); break;
+        }
+    }
+
+    private static void makeNewFile()
+    {
+
+    }
+
+    private static void openFile()
+    {
+
+    }
+
+    private static void saveFile()
     {
 
     }
