@@ -8,10 +8,10 @@ import javax.swing.text.*;
 public class MainApp extends JFrame implements ActionListener
 {
     //Main JFrame for the text editor
-    JFrame f;
+    private JFrame f;
 
     //Main text area space
-    JTextArea t;
+    private JTextArea t;
 
     public static void main(String[] args)
     {
@@ -76,7 +76,7 @@ public class MainApp extends JFrame implements ActionListener
         t.setWrapStyleWord(true);
     }
 
-    @Override
+    //@Override
     public void actionPerformed(ActionEvent e)
     {
         String command = e.getActionCommand();
@@ -87,17 +87,31 @@ public class MainApp extends JFrame implements ActionListener
         }
     }
 
-    private static void makeNewFile()
+    private void makeNewFile()
     {
 
     }
 
-    private static void openFile()
+    private void openFile()
     {
+        //Directory which user can choose
+        String directory = "C:\\Users:\\haris";
 
+        //initializes an explorer object of windows in JSwing
+        JFileChooser explorer = new JFileChooser(directory);
+
+        //opens the explorer and assigns an integer to watch for the actions
+        int openDialogueVal = explorer.showOpenDialog(null);
+
+        //if the person clicked the file
+        if (openDialogueVal == JFileChooser.APPROVE_OPTION)
+        {
+            File chosen = explorer.getSelectedFile(); //get the file
+            //t.append(chosen.getAbsolutePath());
+        }
     }
 
-    private static void saveFile()
+    private void saveFile()
     {
 
     }
