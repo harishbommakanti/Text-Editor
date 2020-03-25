@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.io.*;
 import java.awt.event.*;
+import java.util.Scanner;
 import javax.swing.plaf.metal.*;
 import javax.swing.text.*;
 
@@ -108,6 +109,20 @@ public class MainApp extends JFrame implements ActionListener
         {
             File chosen = explorer.getSelectedFile(); //get the file
             //t.append(chosen.getAbsolutePath());
+            String chosenDirectory = chosen.getAbsolutePath();
+
+            //save the contents of the current file, close it
+            saveFile();
+            t.setText("");
+
+            //add the contents of that file to the text area line by line
+            try
+            {
+                Scanner reader = new Scanner(chosen);
+                while (reader.hasNextLine())
+                    t.append(reader.nextLine() + "\n");
+            }
+            catch(FileNotFoundException e){}
         }
     }
 
