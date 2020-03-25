@@ -14,6 +14,7 @@ public class MainApp extends JFrame implements ActionListener
     //Main text area space
     private JTextArea t;
 
+
     public static void main(String[] args)
     {
         //call the constructor to set the JFrame attributes and set things in motion
@@ -25,11 +26,12 @@ public class MainApp extends JFrame implements ActionListener
         //name the window
         f = new JFrame("Text Editor");
 
+        f.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //set width and height
-        int width=600;
-        int height=700;
-        f.setSize(width,height);
-        f.setResizable(false);
+        //int width=1500;
+        //int height=1500;
+        //f.setSize(width,height);
+        //f.setResizable(false);
 
         //styling
         try {
@@ -39,8 +41,11 @@ public class MainApp extends JFrame implements ActionListener
 
         //sets up main text area
         t = new JTextArea();
-        initializeTextArea(t,width,height);
-        f.add(t);
+        initializeTextArea(t/*,width,height*/);
+
+        //enable scrolling
+        JScrollPane scroll = new JScrollPane(t,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        f.add(scroll);
 
         //main menubar for 'new', 'open', and 'save' buttons
         JMenuBar menubar = new JMenuBar();
@@ -65,16 +70,18 @@ public class MainApp extends JFrame implements ActionListener
 
 
         //final methods to show the box
-        f.setLayout(null);
+        //f.setLayout(null);
         f.setVisible(true);
     }
 
-    private void initializeTextArea(JTextArea t, int w, int h)
+    private void initializeTextArea(JTextArea t/*, int w, int h*/)
     {
-        t.setBounds(0,0,w,h);
         t.setFont(new Font("Calibri", Font.PLAIN, 14));
         t.setLineWrap(true);
         t.setWrapStyleWord(true);
+
+        t.setBackground(Color.darkGray);
+        t.setForeground(Color.WHITE);
     }
 
     //@Override
@@ -96,7 +103,7 @@ public class MainApp extends JFrame implements ActionListener
     private void openFile()
     {
         //Directory which user can choose
-        String directory = "C:\\Users:\\haris";
+        String directory = "C:\\Users\\haris\\Desktop";
 
         //initializes an explorer object of windows in JSwing
         JFileChooser explorer = new JFileChooser(directory);
