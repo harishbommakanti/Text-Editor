@@ -14,6 +14,12 @@ public class MainApp extends JFrame implements ActionListener
     //Main text area space
     private JTextArea t;
 
+    //main menu bar
+    private JMenuBar menubar = new JMenuBar();
+
+    //JMenu item for the directory
+    private JMenu directory = new JMenu();
+
 
     public static void main(String[] args)
     {
@@ -27,11 +33,6 @@ public class MainApp extends JFrame implements ActionListener
         f = new JFrame("Text Editor");
 
         f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //set width and height
-        //int width=1500;
-        //int height=1500;
-        //f.setSize(width,height);
-        //f.setResizable(false);
 
         //styling
         try {
@@ -48,7 +49,6 @@ public class MainApp extends JFrame implements ActionListener
         f.add(scroll);
 
         //main menubar for 'new', 'open', and 'save' buttons
-        JMenuBar menubar = new JMenuBar();
         f.setJMenuBar(menubar);
 
         //adding a menu button for main file operations
@@ -67,7 +67,8 @@ public class MainApp extends JFrame implements ActionListener
         file.add(menuOpen);
         file.add(menuSave);
         menubar.add(file);
-
+        menubar.add(directory);
+        updateMenubar(null);
 
         //final methods to show the box
         //f.setLayout(null);
@@ -80,7 +81,9 @@ public class MainApp extends JFrame implements ActionListener
         t.setLineWrap(true);
         t.setWrapStyleWord(true);
 
-        t.setBackground(Color.darkGray);
+        t.setCaretColor(Color.WHITE);
+        t.setEditable(true);
+        t.setBackground(Color.decode("#2c2f33"));
         t.setForeground(Color.WHITE);
     }
 
@@ -97,7 +100,6 @@ public class MainApp extends JFrame implements ActionListener
 
     private void makeNewFile()
     {
-
     }
 
     private void openFile()
@@ -118,6 +120,9 @@ public class MainApp extends JFrame implements ActionListener
             //t.append(chosen.getAbsolutePath());
             String chosenDirectory = chosen.getAbsolutePath();
 
+            //update the directory in the menubar
+            updateMenubar(chosenDirectory);
+
             //save the contents of the current file, close it
             saveFile();
             t.setText("");
@@ -136,5 +141,10 @@ public class MainApp extends JFrame implements ActionListener
     private void saveFile()
     {
 
+    }
+
+    private void updateMenubar(String filename)
+    {
+        directory.setText("[" + ((filename == null)? "No file chosen" : filename) + "]");
     }
 }
