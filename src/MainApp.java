@@ -98,12 +98,20 @@ public class MainApp extends JFrame implements ActionListener
         }
     }
 
+    //makes a new file AKA saves the current file, starts a new file
     private void makeNewFile()
     {
+        saveFile();
+        t.setText("");
+        updateMenubar(null);
     }
 
     private void openFile()
     {
+        //save the contents of the current file, 'close it'
+        saveFile();
+        t.setText("");
+
         //Directory which user can choose
         String directory = "C:\\Users\\haris\\Desktop";
 
@@ -123,10 +131,6 @@ public class MainApp extends JFrame implements ActionListener
             //update the directory in the menubar
             updateMenubar(chosenDirectory);
 
-            //save the contents of the current file, close it
-            saveFile();
-            t.setText("");
-
             //add the contents of that file to the text area line by line
             try
             {
@@ -140,11 +144,58 @@ public class MainApp extends JFrame implements ActionListener
 
     private void saveFile()
     {
+        String currDirectory = getCurrDirectory(); //gets the current directory from the menubar
+        if (currDirectory.equals("[No file chosen]")) //need to save to a new file
+        {
+            JFileChooser explorer = new JFileChooser("C:\\Users\\haris\\Desktop");
 
+            int r = explorer.showSaveDialog(null); //open the save button dialogue
+
+            if (r == JFileChooser.APPROVE_OPTION) //if yes is clicked
+            {
+                String newPath = explorer.getSelectedFile().getAbsolutePath();
+                updateMenubar(newPath);
+                File newFile = new File(newPath);
+                try
+                {
+                    //open an existing or new file and overwrite whatever it has
+                    FileWriter w = new FileWriter(newFile, false);
+
+                    w.write(t.getText());
+                    w.flush();
+                    w.close();
+                } catch (Exception event)
+                {
+                    JOptionPane.showMessageDialog(f,event.getMessage());
+                }
+            }
+        } else //save to the current file directory
+        {
+            File currentFile = new File(currDirectory);
+            writeToFile(currentFile);
+        }
     }
 
+    //updates the directory JMenu of the JMenuBar
     private void updateMenubar(String filename)
+    { directory.setText("[" + ((filename == null)? "No file chosen" : filename) + "]"); }
+
+    private String getCurrDirectory()
+    { return directory.getText(); }
+
+    private void writeToFile(File newFile)
     {
-        directory.setText("[" + ((filename == null)? "No file chosen" : filename) + "]");
+        try
+        {
+            //open an existing or new file and overwrite whatever it has
+            FileWriter w = new FileWriter(newFile, false);
+
+            w.write(t.getText());
+            w.flush();
+            w.close();
+        } catch (Exception event)
+        {
+            JOptionPane.showMessageDialog(f,event.getMessage());
+        }
     }
 }
