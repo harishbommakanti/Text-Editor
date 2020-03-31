@@ -70,8 +70,15 @@ public class MainApp extends JFrame implements ActionListener
         menubar.add(directory);
         updateMenubar(null);
 
-        //final methods to show the box
-        //f.setLayout(null);
+        //add code for when the X button is clicked
+        f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveFile();
+                System.out.println("Closing...");
+                System.exit(0);
+            }
+        });
         f.setVisible(true);
     }
 
@@ -147,6 +154,8 @@ public class MainApp extends JFrame implements ActionListener
         String currDirectory = getCurrDirectory(); //gets the current directory from the menubar
         if (currDirectory.equals("[No file chosen]")) //need to save to a new file
         {
+            if (t.getText().equals("")) //don't do anything if there is no text to be saved
+                return;
             JFileChooser explorer = new JFileChooser("C:\\Users\\haris\\Desktop");
 
             int r = explorer.showSaveDialog(null); //open the save button dialogue
@@ -171,6 +180,7 @@ public class MainApp extends JFrame implements ActionListener
             }
         } else //save to the current file directory
         {
+            currDirectory = currDirectory.substring(1,currDirectory.length()-1); //need to parse out the [ ]
             File currentFile = new File(currDirectory);
             writeToFile(currentFile);
         }
